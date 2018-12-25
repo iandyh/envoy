@@ -197,7 +197,7 @@ Http::FilterDataStatus AdminFilter::decodeData(Buffer::Instance&, bool end_strea
     onComplete();
   }
 
-  return Http::FilterDataStatus::StopIterationNoBuffer;
+  return Http::FilterDataStatus::StopIterationAndBuffer;
 }
 
 Http::FilterTrailersStatus AdminFilter::decodeTrailers(Http::HeaderMap&) {
@@ -218,6 +218,11 @@ void AdminFilter::addOnDestroyCallback(std::function<void()> cb) {
 Http::StreamDecoderFilterCallbacks& AdminFilter::getDecoderFilterCallbacks() const {
   ASSERT(callbacks_ != nullptr);
   return *callbacks_;
+}
+
+const Buffer::Instance* AdminFilter::getRequestBody() const {
+  // fixfix dedicated tests
+  return callbacks_->decodingBuffer();
 }
 
 const Http::HeaderMap& AdminFilter::getRequestHeaders() const {

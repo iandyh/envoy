@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+
+package envoy.service.tap.v2alpha;
+
+// fixfix
+message TapConfig {
+  // fixfix
+  MatchConfig match_config = 1 [(validate.rules).message.required = true];
+
+  // fixfix
+  OutputConfig output_config = 2 [(validate.rules).message.required = true];
+
+  // fixfix
+  RateLimitConfig rate_limit_config = 3;
+}
+
+// fixfix
+message MatchConfig {
+  // fixfix
+  HttpMatchConfig http_match_config = 1;
+}
+
+// fixfix
+message HttpMatchConfig {
+}
+
+// fixfix
+message OutputConfig {
+  repeated OutputSink sinks = 1 [(validate.rules).repeated .min_items = 1];
+}
+
+// fixfix
+message OutputSink {
+  oneof output_sink_type {
+    option (validate.required) = true;
+
+    // fixfix
+    StreamingAdminSink streaming_admin = 1;
+  }
+}
+
+// fixfix
+message StreamingAdminSink {
+}
+
+// fixfix
+message RateLimitConfig {
+}

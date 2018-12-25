@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "envoy/service/tap/v2alpha/common.proto";
+import "validate/validate.proto";
+
+package envoy.admin.v2alpha;
+
+// fixfix
+message TapRequest {
+  // fixfix
+  string config_id = 1 [(validate.rules).string.min_bytes = 1];
+
+  // fixfix
+  service.tap.v2alpha.TapConfig tap_config = 2 [(validate.rules).message.required = true];
+}
+
+// fixfix
+message TapResponse {
+}
